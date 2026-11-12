@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kehinde Adetunji | Security, DevOps and Cloud</title>
+<meta name="description" content="Kehinde Adetunji: security analyst and DevOps engineer. AWS EKS platforms at AzeniQ, SIEM validation at PurpleIris, carrier networks at Huawei.">
+<meta property="og:title" content="Kehinde Adetunji | Security, DevOps and Cloud">
+<meta property="og:description" content="I build cloud platforms on AWS and test whether they hold.">
+<meta property="og:image" content="https://kentunji.github.io/me.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;--ink:#000000;--graphite:#4d4d4d;--mute:#767676;--rule:#dcdcdc;--wash:#f4f4f4;--up:#1f8a4c;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--paper:#0e0e0e;--ink:#f2f2f2;--graphite:#b8b8b8;--mute:#8f8f8f;--rule:#2e2e2e;--wash:#191919;--up:#4cc27f}
+}
+:root[data-theme="dark"]{--paper:#0e0e0e;--ink:#f2f2f2;--graphite:#b8b8b8;--mute:#8f8f8f;--rule:#2e2e2e;--wash:#191919;--up:#4cc27f}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:17px;line-height:1.6}
+a{color:inherit;text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--paper);padding:8px 12px;z-index:10}
+.skip:focus{left:8px}
+
+.page{max-width:1200px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:64px}
+
+/* Left panel: stays in view on desktop */
+.panel{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:56px 0 40px;gap:24px}
+.photo{width:116px;height:116px;border-radius:50%;overflow:hidden;background:var(--wash);border:1px solid var(--rule);display:grid;place-items:center;flex:none}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo span{font-weight:800;font-variation-settings:"wdth" 125;font-size:40px;letter-spacing:-.02em}
+.panel h1{margin-top:22px;font-weight:900;font-variation-settings:"wdth" 125;font-size:clamp(40px,4.6vw,58px);line-height:.95;letter-spacing:-.035em}
+.panel .title{margin-top:14px;font-size:20px;font-weight:600;font-variation-settings:"wdth" 92}
+.panel .line{margin-top:10px;color:var(--graphite);max-width:34ch}
+.status{display:flex;gap:10px;margin-top:20px;font-size:15px;color:var(--graphite);max-width:38ch}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--up);box-shadow:0 0 0 3px color-mix(in srgb,var(--up) 22%,transparent);flex:none;margin-top:.55em}
+
+.toc{list-style:none;margin-top:28px}
+.toc a{display:flex;align-items:center;gap:14px;padding:5px 0;text-decoration:none;color:var(--mute);font-size:15px;font-weight:600}
+.toc a::before{content:"";height:1.5px;width:32px;background:currentColor;transition:width .2s ease}
+.toc a:hover,.toc a.on{color:var(--ink)}
+.toc a:hover::before,.toc a.on::before{width:64px}
+
+.reach{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:15px}
+.reach a{color:var(--graphite)}
+.reach a:hover{color:var(--ink)}
+
+/* Right column */
+main{padding:56px 0 40px}
+section{scroll-margin-top:32px;padding-bottom:96px}
+.h{display:none}
+p+p{margin-top:14px}
+.about p{color:var(--graphite);max-width:62ch}
+.about strong{color:var(--ink);font-weight:600}
+
+/* Experience entries: date column then content */
+.entry{display:grid;grid-template-columns:132px 1fr;gap:4px 24px;padding:22px 0;border-top:1px solid var(--rule)}
+.entry:first-of-type{border-top:0;padding-top:0}
+.entry .when{font-size:14px;color:var(--mute);font-variant-numeric:tabular-nums;padding-top:4px;line-height:1.4}
+.entry h3{font-size:18px;font-weight:700;line-height:1.35}
+.entry .org{color:var(--graphite);font-size:15px}
+.entry ul{margin:10px 0 0 18px;color:var(--graphite)}
+.entry li{margin-top:5px}
+.entry li::marker{color:var(--mute)}
+.entry p.desc{color:var(--graphite);margin-top:8px}
+.tech{margin-top:10px;font-size:14px;color:var(--mute)}
+.now{display:inline-flex;align-items:center;gap:6px;color:var(--ink);font-weight:600}
+.now .dot{margin:0;width:7px;height:7px}
+.proof{display:block;margin-top:8px;font-size:15px;font-weight:600;color:var(--ink)}
+.more{display:inline-block;margin-top:22px;font-weight:600}
+
+/* Writing and video lists */
+.list{list-style:none}
+.list li{border-top:1px solid var(--rule)}
+.list li:last-child{border-bottom:1px solid var(--rule)}
+.list a{display:grid;grid-template-columns:132px 1fr;gap:4px 24px;padding:15px 0;text-decoration:none}
+.list .d{font-size:14px;color:var(--mute);padding-top:3px}
+.list .t{font-weight:600;line-height:1.4}
+.list a:hover .t{text-decoration:underline}
+.list .s{display:block;font-weight:400;font-size:15px;color:var(--graphite);margin-top:2px}
+.after{margin-top:14px;font-size:15px;color:var(--graphite)}
+
+.sub{font-size:13px;font-weight:700;color:var(--mute);margin:0 0 14px}
+.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 32px}
+.skills h3{font-size:16px;font-weight:700}
+.skills p{color:var(--graphite);font-size:15px;margin-top:2px}
+
+.certs{list-style:none;margin-top:28px}
+.certs li{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 16px;padding:12px 0;border-top:1px solid var(--rule)}
+.certs li span:last-child{font-size:14px;color:var(--mute)}
+
+.contact h2{font-weight:900;font-variation-settings:"wdth" 125;font-size:clamp(30px,4vw,44px);line-height:1;letter-spacing:-.03em}
+.contact p{color:var(--graphite);margin-top:14px;max-width:52ch}
+.mail{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:22px}
+.mail a{font-size:22px;font-weight:700;word-break:break-all}
+.btn{border:1.5px solid var(--ink);background:transparent;color:var(--ink);font:inherit;font-weight:600;font-size:15px;padding:9px 16px;border-radius:999px;cursor:pointer}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.foot{font-size:14px;color:var(--mute);padding-top:24px;border-top:1px solid var(--rule)}
+
+/* Tablet and phone: single column, panel scrolls away */
+@media (max-width:960px){
+  .page{grid-template-columns:1fr;gap:0;padding:0 24px}
+  .panel{position:static;height:auto;padding:56px 0 8px}
+  .toc{display:none}
+  .reach{margin-top:24px}
+  main{padding-top:48px}
+  section{padding-bottom:72px}
+  .h{display:block;position:sticky;top:0;background:var(--paper);z-index:2;font-size:15px;font-weight:700;padding:12px 0;margin-bottom:18px;border-bottom:1.5px solid var(--ink)}
+}
+@media (max-width:600px){
+  .page{padding:0 16px}
+  body{font-size:16px}
+  .photo{width:104px;height:104px}
+  .entry,.list a{grid-template-columns:1fr}
+  .skills{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toc a::before{transition:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+
+<div class="page">
+  <header class="panel">
+    <div>
+      <div class="photo">
+        <img src="me.jpg" alt="Kehinde Adetunji" width="132" height="132" onerror="this.remove()">
+        <span aria-hidden="true">KA</span>
+      </div>
+      <h1>Kehinde<br>Adetunji</h1>
+      <p class="title">Security analyst and DevOps engineer</p>
+      <p class="line">I build cloud platforms on AWS and test whether they hold.</p>
+      <p class="status"><span class="dot" aria-hidden="true"></span><span>Open to security, DevOps and cloud support roles. Currently based in Russia. Open to remote work, or to relocating to Nigeria or the EU for the right role.</span></p>
+      <nav aria-label="Sections">
+        <ul class="toc">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#writing">Writing and video</a></li>
+          <li><a href="#skills">Skills and education</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="reach">
+      <a href="mailto:kentunji14@gmail.com">kentunji14@gmail.com</a>
+      <a href="https://github.com/Kentunji">GitHub</a>
+      <a href="https://linkedin.com/in/kehinde-adetunji-45a6b6191">LinkedIn</a>
+      <a href="https://www.behance.net/adetunjikehinde">Behance</a>
+    </div>
+  </header>
+
+  <main id="content">
+
+    <section id="about" class="about" aria-label="About">
+      <h2 class="h">About</h2>
+      <p>I started on <strong>carrier IP networks at Huawei</strong>, keeping national mobile networks running for operators in Ghana and South Africa. An outage there meant millions of people offline, and it taught me to care about how systems fail.</p>
+      <p>Now I work on both sides of that. At <strong>AzeniQ</strong> I run Kubernetes platforms on AWS: version upgrades on a production EKS cluster, an Istio service mesh with strict mutual TLS, and OPA and Kyverno policies. At <strong>PurpleIris</strong> I test a SIEM against real attack scenarios and write threat research.</p>
+      <p>I'm finishing an M.Sc. in Security and Network Engineering at Innopolis University on a full scholarship, and I'm sitting the AWS Solutions Architect and Security Specialty exams in early 2027.</p>
+    </section>
+
+    <section id="experience" aria-label="Experience">
+      <h2 class="h">Experience</h2>
+
+      <article class="entry">
+        <p class="when">Jul 2026 to<br><span class="now"><span class="dot" aria-hidden="true"></span>present</span></p>
+        <div>
+          <h3>Security Analyst (Contract)</h3>
+          <p class="org">PurpleIris, remote</p>
+          <ul>
+            <li>Test and validate the company's SIEM against attack scenarios: Windows logon failures, sudo abuse, Kubernetes audit events and Suricata IDS alerts.</li>
+            <li>Validated file integrity monitoring, CVE detection, CIS configuration assessment and active response. Defects I reported, including a poisonable FIM baseline, were fixed by the developers.</li>
+            <li>Benchmarking the product end to end against Wazuh and documenting every gap for the product team.</li>
+            <li>Debug a multi-service Docker stack (ingestion, detection engine, ClickHouse, Redis) from logs and REST API responses.</li>
+          </ul>
+          <p class="tech">SIEM, Wazuh, Suricata, Docker, ClickHouse, Python</p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <p class="when">Oct 2025 to<br><span class="now"><span class="dot" aria-hidden="true"></span>present</span></p>
+        <div>
+          <h3>DevOps Engineer</h3>
+          <p class="org">AzeniQ, United States, remote</p>
+          <ul>
+            <li>Own Kubernetes version upgrades on the production EKS cluster (1.35 to 1.36), each rolled out through a reviewed merge request.</li>
+            <li>Rolled out an Istio service mesh in phases to strict mutual TLS, then added OPA request authorisation through Envoy and Kyverno admission policies.</li>
+            <li>Deliver cluster changes GitOps-style with Argo CD and Kustomize, with Karpenter autoscaling, and built GitHub Actions pipelines for ML training and serving.</li>
+            <li>Traced an IAM race condition and a KMS error that blocked daily infrastructure builds, fixed both, and wrote the incident reports.</li>
+          </ul>
+          <p class="tech">AWS EKS, Terraform, Istio, OPA, Kyverno, Argo CD, Karpenter, GitLab CI</p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <p class="when">Mar 2024 to<br>Oct 2025</p>
+        <div>
+          <h3>IP Network Engineer</h3>
+          <p class="org">Huawei Technologies, Lagos, Nigeria</p>
+          <ul>
+            <li>First point of contact for AirtelTigo Ghana and Vodacom South Africa: triaged faults, escalated with evidence and closed cases within SLA.</li>
+            <li>Deployed and migrated carrier routing and led incident calls during outages and planned cutovers.</li>
+            <li>Automated network health checks with Python and Ansible.</li>
+          </ul>
+          <p class="tech">BGP, IS-IS, OSPF, MPLS L3VPN, SR/SRv6, Huawei VRP, Ansible</p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <p class="when">Oct 2025 to<br>Sep 2026</p>
+        <div>
+          <h3>AI Data Annotator and Evaluator (Contract)</h3>
+          <p class="org">Mercor, remote</p>
+          <p class="desc">Evaluated LLM outputs for accuracy and instruction-following across three AI training projects.</p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <p class="when">Apr to Sep 2020</p>
+        <div>
+          <h3>Network Engineering Intern</h3>
+          <p class="org">Huawei Technologies</p>
+          <p class="desc">First hands-on work with carrier-grade routing and Huawei NE routers.</p>
+        </div>
+      </article>
+
+      <a class="more" href="https://linkedin.com/in/kehinde-adetunji-45a6b6191">Full history on LinkedIn</a>
+    </section>
+
+    <section id="projects" aria-label="Projects">
+      <h2 class="h">Projects</h2>
+
+      <article class="entry">
+        <p class="when">AWS</p>
+        <div>
+          <h3><a href="https://github.com/Kentunji/aws-devsecops-capstone">AWS DevSecOps platform</a></h3>
+          <p class="desc">A URL shortener on ECS Fargate and RDS, with secrets in Secrets Manager, SHA-tagged images and blue/green deploys through CodeDeploy, so a bad release can be rolled back without downtime.</p>
+          <p class="tech">ECS Fargate, RDS, Secrets Manager, CodeDeploy, CI/CD</p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <p class="when">Offensive security</p>
+        <div>
+          <h3><a href="https://github.com/Kentunji/argus">Argus</a></h3>
+          <p class="desc">An AI-assisted web vulnerability scanner that tests against the OWASP Top 10 and verifies each finding before reporting it, to cut false positives.</p>
+          <span class="proof">67 passing tests, validated on OWASP Juice Shop</span>
+          <p class="tech">Python, LLM, Docker</p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <p class="when">Blue team</p>
+        <div>
+          <h3><a href="https://github.com/Kentunji/wazuh-soc-lab">Wazuh SOC lab</a></h3>
+          <p class="desc">A full SOC stack that takes an alert to a case to an automated response: Wazuh SIEM, TheHive, Shuffle SOAR and ModSecurity, plus an offline Wazuh build over Active Directory on Proxmox.</p>
+          <p class="tech">Wazuh, TheHive, Shuffle, Active Directory</p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <p class="when">M.Sc. thesis</p>
+        <div>
+          <h3>Anomaly detection for water treatment control systems</h3>
+          <p class="desc">A Raspberry Pi screens plant data and escalates suspicious events to the cloud. I own the cloud autoencoder and the LLM-assisted stage that explains each anomaly to operators. In progress.</p>
+          <p class="tech">ICS/OT, SWaT, WADI, autoencoders, LLMs</p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <p class="when">Kubernetes</p>
+        <div>
+          <h3>PolicyPulse</h3>
+          <p class="desc">Kyverno policy enforcement with logs shipped by Fluent Bit to Elasticsearch and an LLM layer that explains each violation in plain language. Built in a team of three.</p>
+          <p class="tech">Kubernetes, Kyverno, Fluent Bit, Elasticsearch</p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <p class="when">Client work</p>
+        <div>
+          <h3>Production SaaS security audit</h3>
+          <p class="desc">A private end-to-end review of a live Firebase-backed SaaS, from auth rules to data exposure, delivered as a prioritised report with fixes.</p>
+          <span class="proof">47 findings reported</span>
+        </div>
+      </article>
+
+      <a class="more" href="https://github.com/Kentunji">More on GitHub</a>
+    </section>
+
+    <section id="writing" aria-label="Writing and video">
+      <h2 class="h">Writing and video</h2>
+      <p class="sub">Threat research on the PurpleIris blog</p>
+      <ul class="list">
+        <li><a href="https://www.purpleiris.io/blog/bitget-wallet-breach-spoofed-backend-transfers"><span class="d">Sep 2026</span><span class="t">Bitget Wallet breach: spoofed backend transfers</span></a></li>
+        <li><a href="https://www.purpleiris.io/blog/etranzact-unauthorised-credits-credit-side-fraud"><span class="d">Sep 2026</span><span class="t">eTranzact unauthorised credits: credit-side fraud</span></a></li>
+        <li><a href="https://www.purpleiris.io/blog"><span class="d">Aug 2026</span><span class="t">Keyv npm worm: signed packages and editor hooks</span></a></li>
+        <li><a href="https://www.purpleiris.io/blog/sandbox-escape-openai-models-hugging-face-breach"><span class="d">Jul 2026</span><span class="t">Sandbox escape in OpenAI models and the Hugging Face breach</span></a></li>
+        <li><a href="https://www.purpleiris.io/blog/phantom-squatting-hallucinated-domain-attack-surface"><span class="d">Jul 2026</span><span class="t">Phantom squatting: the hallucinated domain attack surface</span></a></li>
+      </ul>
+
+      <p class="sub" style="margin-top:40px">Security explainers I produced</p>
+      <ul class="list">
+        <li><a href="https://www.instagram.com/reel/DfE6PdLtR1g/"><span class="d">Video, 2026</span><span class="t">How fake Wi-Fi steals your login<span class="s">86-second explainer with motion graphics and live action</span></span></a></li>
+        <li><a href="https://www.instagram.com/reel/DehBce8xJm_/"><span class="d">Video, 2026</span><span class="t">PurpleIris company intro<span class="s">Narrated intro in landscape and 9:16 versions</span></span></a></li>
+      </ul>
+      <p class="after">More design work is on <a href="https://www.behance.net/adetunjikehinde">Behance</a>.</p>
+    </section>
+
+    <section id="skills" aria-label="Skills and education">
+      <h2 class="h">Skills and education</h2>
+      <div class="skills">
+        <div><h3>Cloud and containers</h3><p>AWS (EKS, EC2, IAM, KMS, VPC, S3), Kubernetes, Docker, Terraform</p></div>
+        <div><h3>Platform security</h3><p>Istio, mutual TLS, OPA, Kyverno, Argo CD, Karpenter</p></div>
+        <div><h3>Detection and response</h3><p>Wazuh, SIEM validation, Suricata, TheHive, Shuffle SOAR</p></div>
+        <div><h3>Networks and code</h3><p>BGP, IS-IS, MPLS, Python, Bash, Ansible</p></div>
+      </div>
+
+      <ul class="certs">
+        <li><span><strong>M.Sc. Security and Network Engineering</strong>, Innopolis University, GPA 4.75/5.0</span><span>2025 to Aug 2027</span></li>
+        <li><span><strong>B.Eng. Computer Engineering</strong>, Bells University of Technology</span><span>2018 to 2023</span></li>
+        <li><span>AWS Certified Solutions Architect, Associate</span><span>Exam February 2027</span></li>
+        <li><span>AWS Certified Security, Specialty</span><span>Exam April 2027</span></li>
+        <li><span>Huawei Certified, Datacom and Cloud Computing</span><span>Nov 2021 to Nov 2024</span></li>
+      </ul>
+    </section>
+
+    <section id="contact" class="contact" aria-label="Contact">
+      <h2>Need someone who can build it and secure it?</h2>
+      <p>I'm open to security analyst, DevOps and cloud support roles, remote or with relocation to Nigeria or the EU. Email is the fastest way to reach me.</p>
+      <div class="mail">
+        <a href="mailto:kentunji14@gmail.com">kentunji14@gmail.com</a>
+        <button class="btn" type="button" id="copy">Copy email</button>
+      </div>
+    </section>
+
+    <p class="foot">Kehinde Adetunji, currently in Russia. Last updated November 2026.</p>
+  </main>
+</div>
+
+<script>
+// Copy email
+document.getElementById('copy').addEventListener('click', function () {
+  var b = this;
+  navigator.clipboard.writeText('kentunji14@gmail.com').then(function () {
+    b.textContent = 'Email copied';
+    setTimeout(function () { b.textContent = 'Copy email'; }, 2000);
+  });
+});
+// Hide initials once the photo loads
+var img = document.querySelector('.photo img');
+function hideInitials(){ var s = document.querySelector('.photo span'); if (s) s.remove(); }
+if (img) { if (img.complete && img.naturalWidth) hideInitials(); else img.addEventListener('load', hideInitials); }
+// Mark the section in view in the side menu
+var links = document.querySelectorAll('.toc a');
+var obs = new IntersectionObserver(function (es) {
+  es.forEach(function (e) {
+    if (e.isIntersecting) links.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id); });
+  });
+}, { rootMargin: '-35% 0px -60% 0px' });
+document.querySelectorAll('main section').forEach(function (s) { obs.observe(s); });
+</script>
+</body>
+</html>
